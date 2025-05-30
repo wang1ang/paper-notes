@@ -12,13 +12,13 @@
 对比损失函数如下：
 
 $$
-\mathcal{L}_{\text{align}} = -\log \frac{\exp\left( \text{sim}(z_i, z_j) / \tau \right)}{\sum_{k=1}^{N} \exp\left( \text{sim}(z_i, z_k) / \tau \right)}
+L_{align} = -log \\left[ \\frac{exp(sim(z_i, z_j)/\\tau)}{\\sum_k exp(sim(z_i, z_k)/\\tau)} \\right]
 $$
 
 其中：
-- $z_i, z_j$ 是正样本对的表示
-- $\text{sim}$ 是余弦相似度
-- $\tau$ 是温度参数
+- $z_i, z_j$ 是正样本对的表示  
+- $sim$ 是余弦相似度  
+- $\\tau$ 是温度参数
 
 ---
 
@@ -29,7 +29,7 @@ $$
 使用 KNN 找到 top-K 最近邻：
 
 $$
-q_{\text{top-K}}(x) = \{ e_{k_1}, e_{k_2}, \dots, e_{k_K} \}
+q_{topK}(x) = \\{ e_{k1}, e_{k2}, ..., e_{kK} \\}
 $$
 
 多个 code 能保留更多语义信息，避免信息丢失。
@@ -38,13 +38,13 @@ $$
 残差递归量化，多层级编码：
 
 $$
-r_1 = x - e^{(1)}_{k_1}, \quad r_2 = r_1 - e^{(2)}_{k_2}, \quad \dots
+r_1 = x - e^{(1)}_{k1}, \\quad r_2 = r_1 - e^{(2)}_{k2}, \\quad ...
 $$
 
 最终编码重构为：
 
 $$
-\hat{x} = e^{(1)}_{k_1} + e^{(2)}_{k_2} + \dots + e^{(L)}_{k_L}
+\\hat{x} = e^{(1)}_{k1} + e^{(2)}_{k2} + ... + e^{(L)}_{kL}
 $$
 
 ---
