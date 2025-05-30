@@ -29,14 +29,19 @@ item 被离散化为 token，token 空间通过 **Balanced K-means clustering** 
 ### 3. DPO 优化方法
 
 - 使用预训练模型 + beam search 生成多个推荐序列
-- 用 reward model 打分，挑选得分高/低的正负样本 \( y^+, y^- \)
+- 用 reward model 打分，挑选得分高/低的正负样本 $\( y^+, y^- \)$
 - 优化 decoder，使其更偏好高评分序列：
 
+DPO 损失函数为：
+
 $$
-\mathcal{L}_{\text{DPO}} = - \log \frac{ \exp( r(y^+) / \beta ) }{ \exp( r(y^+) / \beta ) + \exp( r(y^-) / \beta ) }
+\mathcal{L}_{\text{DPO}} = -\log \sigma\left( \beta \cdot [r(y^+) - r(y^-)] \right)
 $$
 
-其中 \( r(\cdot) \) 为 reward，\( \beta \) 为温度系数。
+其中 $` r(\cdot) `$ 为
+```math
+log \frac {M _{t+1}(S_u|H_u)}{M _t(S_u|H_u)}
+```
 
 ---
 
